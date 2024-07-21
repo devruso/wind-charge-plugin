@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="windCharge:jar">
+    <output-path>$PROJECT_DIR$/../../server/plugins</output-path>
+    <root id="archive" name="windCharge.jar">
+      <element id="module-output" name="windCharge" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../dependencies/spigot-api-1.21.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
