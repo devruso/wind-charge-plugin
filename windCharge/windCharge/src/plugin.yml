@@ -1,0 +1,6 @@
+name: WindCharger
+version: 1.0
+author: Devruso
+main: com.devruso.windCharger.WindCharge
+api-version: 1.21
+
