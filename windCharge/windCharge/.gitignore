@@ -2,6 +2,9 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+/out/
+/.idea/
+windCharge.iml
 
 ### Eclipse ###
 .apt_generated
