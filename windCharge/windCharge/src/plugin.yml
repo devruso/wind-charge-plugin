@@ -1,6 +1,23 @@
-name: WindCharger
+name: WindCharge
 version: 1.0
 author: Devruso
 main: com.devruso.windCharge.WindCharge
 api-version: 1.21
 
+commands:
+  getitem:
+    description: "Gives the player 90 Wind Charges"
+    usage: "/getitem"
+    permission: windcharge.getitem
+  setwindcharge:
+    description: "Sets the properties of the Wind Charge"
+    usage: "/setwindcharge <property> <value>"
+    permission: windcharge.setwindcharge
+
+permissions:
+  windcharge.getitem:
+    description: "Allows the player to get Wind Charges"
+    default: true
+  windcharge.setwindcharge:
+    description: "Allows the player to set properties of the Wind Charge"
+    default: true
