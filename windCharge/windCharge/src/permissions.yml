@@ -1,0 +1,8 @@
+groups:
+  default:
+    permissions:
+      - windcharge.getitem
+      - windcharge.setwindcharge
+  admin:
+    permissions:
+      - windcharge.*
