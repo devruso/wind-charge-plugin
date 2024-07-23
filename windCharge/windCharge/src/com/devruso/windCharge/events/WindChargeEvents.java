@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -39,8 +40,8 @@ public class WindChargeEvents implements Listener {
         Projectile projectile = (Projectile) event.getEntity();
         if(projectile.getShooter() instanceof Player){
             Player player = (Player) projectile.getShooter();
+
             if(player.getInventory().getItemInMainHand().getType() == Material.WIND_CHARGE){
-                double explosionStrength = plugin.getConfig().getDouble("windcharge.explosionStrength");
                 boolean spawnParticles = plugin.getConfig().getBoolean("windcharge.spawnParticles");
                 double projectileSpeed = plugin.getConfig().getDouble("windcharge.projectileSpeed");
                 Bukkit.getLogger().info("Projectile speed: " + projectileSpeed);
@@ -61,23 +62,30 @@ public class WindChargeEvents implements Listener {
                         @EventHandler
                         public void onProjectileHit(ProjectileHitEvent hitEvent){
                             if(hitEvent.getEntity() == projectile){
+                                double explosionStrength = plugin.getConfig().getDouble("windcharge.explosionStrength");
                                 projectile.getWorld().createExplosion(projectile.getLocation(), (float) explosionStrength);
                                 ProjectileHitEvent.getHandlerList().unregister(this);
                             }
                         }
                     }, plugin);
                 }
-
-
-
             }
-
-
-
-
         }
     }
 
-
+    @EventHandler
+    public void onProjectileHit(ProjectileHitEvent event){
+        Entity entity = event.getEntity();
+        if (entity instanceof  Projectile){
+            Projectile projectile = (Projectile) entity;
+            if (projectile.getShooter() instanceof Player) {
+                Player player = (Player) projectile.getShooter();
+                if (player.getInventory().getItemInMainHand().getType() == Material.WIND_CHARGE) {
+                    double explosionStrength = plugin.getConfig().getDouble("windcharge.explosionStrength");
+                    projectile.getWorld().createExplosion(projectile.getLocation(), (float) explosionStrength);
+                }
+            }
+        }
+    }
 
 }
