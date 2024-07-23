@@ -43,7 +43,8 @@ public class WindChargeCommands implements CommandExecutor {
                 case "explosionstrength":
                     try {
                         double explosionStrength = Double.parseDouble(value);
-                        plugin.setExplosionStrength(explosionStrength);
+                        plugin.getConfig().set("windcharge.explosionStrength",explosionStrength);
+                        plugin.saveConfig();
                         player.sendMessage(ChatColor.GREEN + "Força da explosão configurada para: " + explosionStrength);
                     } catch (NumberFormatException e) {
                         player.sendMessage(ChatColor.RED + "Valor inválido para força da explosão.");
@@ -52,7 +53,8 @@ public class WindChargeCommands implements CommandExecutor {
                 case "spawnparticles":
                     try{
                         boolean spawnParticles = Boolean.parseBoolean(value);
-                        plugin.setSpawnParticles(spawnParticles);
+                        plugin.getConfig().set("windcharge.spawnParticles",spawnParticles);
+                        plugin.saveConfig();
                         player.sendMessage(ChatColor.GREEN + "Partículas ativadas para Wind Charge: " + spawnParticles);
                         break;
                     } catch (Exception e) {
@@ -61,7 +63,8 @@ public class WindChargeCommands implements CommandExecutor {
                 case "projectilespeed":
                     try {
                         double projectileSpeed = Double.parseDouble(value);
-                        plugin.setProjectileSpeed(projectileSpeed);
+                        plugin.getConfig().set("windcharge.projectileSpeed",projectileSpeed);
+                        plugin.saveConfig();
                         player.sendMessage(ChatColor.GREEN + "Velocidade do projétil configurada para: " + projectileSpeed);
                     } catch (NumberFormatException e) {
                         player.sendMessage(ChatColor.RED + "Valor inválido para velocidade do projétil.");
