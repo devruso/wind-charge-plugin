@@ -1,0 +1,4 @@
+windcharge:
+  explosionStrength: 4.0
+  spawnParticles: false
+  projectileSpeed: 1.5
