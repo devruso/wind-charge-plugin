@@ -33,6 +33,9 @@ public class DatabaseManager {
             String url = "jdbc:mysql://localhost:3306/minecraft";
             connection = DriverManager.getConnection(url, "root", "12345678");
             System.out.println("Conexão com MySQL estabelecida com sucesso!");
+            try (Statement stmt = connection.createStatement()) {
+                stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + database);
+            }
             createTablesIfNotExists();
         } catch (SQLException e) {
             e.printStackTrace();
