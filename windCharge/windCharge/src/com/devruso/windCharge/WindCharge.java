@@ -1,12 +1,15 @@
 package com.devruso.windCharge;
 
+import com.devruso.windCharge.commands.HomeCommands;
 import com.devruso.windCharge.commands.WindChargeCommands;
+import com.devruso.windCharge.database.DatabaseManager;
 import com.devruso.windCharge.events.WindChargeEvents;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.Connection;
 import java.util.Objects;
 
 public class WindCharge extends JavaPlugin implements  Listener{
@@ -15,20 +18,31 @@ public class WindCharge extends JavaPlugin implements  Listener{
     private boolean spawnParticles;
     private double projectileSpeed;
 
+    private DatabaseManager databaseManager;
+
     @Override
     public void onEnable(){
         saveDefaultConfig();
         loadConfigValues();
+        setupDatabase();
+
         getServer().getPluginManager().registerEvents((Listener) this, this);
-        getServer().getPluginManager().registerEvents(new WindChargeEvents(),this );
+        getServer().getPluginManager().registerEvents(new WindChargeEvents(this),this );
+
+        Objects.requireNonNull(getCommand("sethome")).setExecutor(new HomeCommands(this));
+        Objects.requireNonNull(getCommand("teleport")).setExecutor(new HomeCommands(this));
         Objects.requireNonNull(getCommand("getitem")).setExecutor(new WindChargeCommands(this));
         Objects.requireNonNull(getCommand("setwindcharge")).setExecutor(new WindChargeCommands(this));
+
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Wind Charge]: Plugin enabled");
 
     }
 
     @Override
     public void onDisable(){
+        if (databaseManager != null) {
+            databaseManager.closeConnection();
+        }
         getServer()
                 .getConsoleSender()
                 .sendMessage(ChatColor.RED + "[Wind Charge]: Plugin disabled");
@@ -44,6 +58,24 @@ public class WindCharge extends JavaPlugin implements  Listener{
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "Spawn Particles: " + spawnParticles);
 
     }
+
+    private void setupDatabase() {
+        String host = getConfig().getString("mysql.host");
+        int port = getConfig().getInt("mysql.port");
+        String database = getConfig().getString("mysql.database");
+        String username = getConfig().getString("mysql.username");
+        String password = getConfig().getString("mysql.password");
+
+        databaseManager = new DatabaseManager(host, database,username,password,port);
+        databaseManager.connect();
+    }
+
+
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
+    }
+
+
 
     public double getExplosionStrength() {
         return getConfig().getDouble("windcharge.explosionStrength");
@@ -74,7 +106,6 @@ public class WindCharge extends JavaPlugin implements  Listener{
         getConfig().set("windchange.projectileSpeed",projectileSpeed);
         saveConfig();
     }
-
 
 
 
