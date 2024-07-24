@@ -32,7 +32,7 @@ public class HomeCommands implements CommandExecutor {
             String homeName = args[0];
             Location location = player.getLocation();
             plugin.getDatabaseManager().saveHome(player.getUniqueId(), homeName, location);
-            player.sendMessage(ChatColor.GREEN + "Home " + homeName + " salva!");
+            player.sendMessage(ChatColor.GREEN + "Teleport para: " + homeName + " configurado!");
         } else if (cmd.getName().equalsIgnoreCase("teleport")) {
             if (args.length != 1) {
                 player.sendMessage(ChatColor.RED + "Uso correto: /teleport <nome>");
@@ -42,7 +42,7 @@ public class HomeCommands implements CommandExecutor {
             Location home = plugin.getDatabaseManager().getHome(player.getUniqueId(), homeName);
             if (home != null) {
                 player.teleport(home);
-                player.sendMessage(ChatColor.GREEN + "Teletransportado para home " + homeName + "!");
+                player.sendMessage(ChatColor.GREEN + "Teletransportado para: " + homeName + "!");
             } else {
                 player.sendMessage(ChatColor.RED + "Home " + homeName + " não encontrada!");
             }
