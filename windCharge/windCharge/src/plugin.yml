@@ -13,6 +13,12 @@ commands:
     description: "Sets the properties of the Wind Charge"
     usage: "/setwindcharge <property> <value>"
     permission: windcharge.setwindcharge
+  sethome:
+    description: "Seta uma home no local atual"
+    usage: "/sethome <nome>"
+  teleport:
+    description: "Teletransporta para uma home salva"
+    usage: "/teleport <nome>"
 
 permissions:
   windcharge.getitem:
@@ -20,4 +26,10 @@ permissions:
     default: true
   windcharge.setwindcharge:
     description: "Allows the player to set properties of the Wind Charge"
+    default: true
+  home.sethome:
+    description: "Marks the current location as a home. It's important to specify its name"
+    default: true
+  home.teleport:
+    description: "Lets the user teleport to one of it previous homes"
     default: true
