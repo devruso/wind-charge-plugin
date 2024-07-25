@@ -49,16 +49,26 @@ O plugin WindCharge para Minecraft permite aos jogadores criar e gerenciar "home
 3. **Comandos**
 
     **/sethome [nome]:** Define um local como uma home com o nome especificado.
+
     **/teleport [nome]:** Teletransporta o jogador para a home com o nome especificado.
+
     **/getitem [nome]:** Obtém um item com base no nome fornecido (usado no WindCharge).
+
     **/setwindcharge [valor]:** Define a força da explosão do WindCharge.
+
     **/teleportcd [tempo]:** Define o cooldown de teletransporte.
+
     **/teleportparticles [true/false]:** Ativa ou desativa as partículas ao teletransportar.
+
 
 4. **Estrutura**
 
   Para gerar um .jar com as funcionalidades:
+
      - Na sua IDE altere os dados de conexão do banco de dados no config.yml
+
      - Após alterar e salvar os dados, na barra de navegação da IDE vá em Build -> Build Artifacts -> Build.
+
      - Após o build pela IDE, o plugin estará disponível na pastar server -> plugins.
+
      - Para rodar o servidor com o plugin, vá na pasta server e rode o arquivo run.
