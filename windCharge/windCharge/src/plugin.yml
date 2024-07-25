@@ -19,7 +19,12 @@ commands:
   teleport:
     description: "Teletransporta para uma home salva"
     usage: "/teleport <nome>"
-
+  teleportcd:
+    description: "Define o cooldown para o teletransporte de home"
+    usage: "/teleportcd <tempo_em_segundos>"
+  teleportparticles:
+    description: "Ativa/Desativa a exibição de partículas ao teletransportar"
+    usage: "/teleportparticles"
 permissions:
   windcharge.getitem:
     description: "Allows the player to get Wind Charges"
@@ -33,3 +38,4 @@ permissions:
   home.teleport:
     description: "Lets the user teleport to one of it previous homes"
     default: true
+
