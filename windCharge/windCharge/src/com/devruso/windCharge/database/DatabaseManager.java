@@ -1,5 +1,6 @@
 package com.devruso.windCharge.database;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -9,11 +10,13 @@ import java.util.UUID;
 public class DatabaseManager {
 
     private Connection connection;
-    private String host;
-    private String database;
-    private String username;
-    private String password;
-    private int port;
+    private final String host;
+    private final String database;
+    private final String username;
+    private final String password;
+    private final int port;
+
+
 
     public DatabaseManager(String host, String database, String username, String password, int port) {
         this.host = host;
@@ -26,17 +29,27 @@ public class DatabaseManager {
 
     public void connect() {
         try {
-            // Registra o driver MySQL. Driver mais recente para conexões MySQL.
+            // Registra o driver MySQL.
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Conecta-se ao banco de dados MySQL
-            String url = "jdbc:mysql://localhost:3306/minecraft";
-            connection = DriverManager.getConnection(url, "root", "12345678");
-            System.out.println("Conexão com MySQL estabelecida com sucesso!");
+            // Tenta conectar-se ao MySQL usando a URL de conexão
+            String initialUrl = "jdbc:mysql://" + host + ":" + port + "/";
+            connection = DriverManager.getConnection(initialUrl, username, password);
+
+            // Cria o banco de dados se ele não existir
             try (Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + database);
             }
+
+            // Fecha a conexão inicial e conecta novamente, desta vez especificando o banco de dados
+            connection.close();
+            String finalUrl = "jdbc:mysql://" + host + ":" + port + "/" + database;
+            connection = DriverManager.getConnection(finalUrl, username, password);
+
+            // Cria as tabelas se não existirem
             createTablesIfNotExists();
+
+            System.out.println("Conexão com o banco de dados MySQL " + database + " estabelecida com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Erro de conexão com MySQL: " + e.getMessage());
@@ -46,7 +59,12 @@ public class DatabaseManager {
         }
     }
 
+
     private void createTablesIfNotExists() {
+        if (connection == null) {
+            System.err.println("A conexão com o banco de dados não foi estabelecida.");
+            return;
+        }
         try (Statement stmt = connection.createStatement()) {
             // Cria a tabela homes se não existir
             String createHomesTableSQL = "CREATE TABLE IF NOT EXISTS homes ("
@@ -63,6 +81,7 @@ public class DatabaseManager {
             System.out.println("Tabelas criadas ou já existentes.");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.err.println("Erro ao criar tabelas no MySQL: " + e.getMessage());
         }
     }
 
