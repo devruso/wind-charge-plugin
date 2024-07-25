@@ -46,7 +46,8 @@ O plugin WindCharge para Minecraft permite aos jogadores criar e gerenciar "home
      cooldown: 10
      teleportParticles: true
 
-**Comandos**
+3. **Comandos**
+
     **/sethome [nome]:** Define um local como uma home com o nome especificado.
     **/teleport [nome]:** Teletransporta o jogador para a home com o nome especificado.
     **/getitem [nome]:** Obtém um item com base no nome fornecido (usado no WindCharge).
@@ -54,7 +55,8 @@ O plugin WindCharge para Minecraft permite aos jogadores criar e gerenciar "home
     **/teleportcd [tempo]:** Define o cooldown de teletransporte.
     **/teleportparticles [true/false]:** Ativa ou desativa as partículas ao teletransportar.
 
-**Estrutura**
+4. **Estrutura**
+
   Para gerar um .jar com as funcionalidades:
      - Na sua IDE altere os dados de conexão do banco de dados no config.yml
      - Após alterar e salvar os dados, na barra de navegação da IDE vá em Build -> Build Artifacts -> Build.
