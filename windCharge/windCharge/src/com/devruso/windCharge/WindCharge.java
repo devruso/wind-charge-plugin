@@ -1,6 +1,7 @@
 package com.devruso.windCharge;
 
 import com.devruso.windCharge.commands.HomeCommands;
+import com.devruso.windCharge.commands.HomeConfigCommands;
 import com.devruso.windCharge.commands.WindChargeCommands;
 import com.devruso.windCharge.database.DatabaseManager;
 import com.devruso.windCharge.events.WindChargeEvents;
@@ -29,10 +30,12 @@ public class WindCharge extends JavaPlugin implements  Listener{
         getServer().getPluginManager().registerEvents((Listener) this, this);
         getServer().getPluginManager().registerEvents(new WindChargeEvents(this),this );
 
-        Objects.requireNonNull(getCommand("sethome")).setExecutor(new HomeCommands(this));
-        Objects.requireNonNull(getCommand("teleport")).setExecutor(new HomeCommands(this));
         Objects.requireNonNull(getCommand("getitem")).setExecutor(new WindChargeCommands(this));
         Objects.requireNonNull(getCommand("setwindcharge")).setExecutor(new WindChargeCommands(this));
+        Objects.requireNonNull(getCommand("sethome")).setExecutor(new HomeCommands(this));
+        Objects.requireNonNull(getCommand("teleport")).setExecutor(new HomeCommands(this));
+        Objects.requireNonNull(getCommand("teleportcd")).setExecutor(new HomeConfigCommands(this));
+        Objects.requireNonNull(getCommand("teleportparticles")).setExecutor(new HomeConfigCommands(this));
 
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Wind Charge]: Plugin enabled");
 
@@ -66,7 +69,7 @@ public class WindCharge extends JavaPlugin implements  Listener{
         String username = getConfig().getString("mysql.username");
         String password = getConfig().getString("mysql.password");
 
-        databaseManager = new DatabaseManager(host, database,username,password,port);
+        databaseManager = new DatabaseManager(host, database, username, password, port);
         databaseManager.connect();
     }
 
