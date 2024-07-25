@@ -3,6 +3,9 @@ groups:
     permissions:
       - windcharge.getitem
       - windcharge.setwindcharge
+      - home.sethome
+      - home.home
   admin:
     permissions:
       - windcharge.*
+      - home.*
